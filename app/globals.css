@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+@layer utilities {
+  .scrollbar-transparent::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-transparent::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-transparent::-webkit-scrollbar-thumb {
+    background-color: transparent; /* fully transparent */
+    border-radius: 10px;
+  }
+
+  .scrollbar-transparent {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+}
+
+@font-face {
+  font-family: 'Bahnschrift';
+  src: url('/fonts/saira/saira.ttf') format('truetype');
+  font-weight: 1000;
+}
+
+@font-face {
+  font-family: 'Bahnschrift-bold';
+  src: url('/fonts/saira/saira.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Bank Sans';
+  src: url('/fonts/ruso-one/ruso-one.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 1000;
+  font-display: swap;
+}
+
+body {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+} 
+
+.custom-logo {
+  width: auto;
+  height: 20px;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.hero-gradient {
+  background-image: linear-gradient(to right, #0b192c, #0875ce);
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-section {
+  position: relative;
+  background-blend-mode: overlay;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 600px;
+  overflow: hidden;
+}
+
+select option {
+  background-color: #12436c;
+  color: white;
+  font-size: 14px;
+  height: 40px;
+}
+
+
+.trophy-img {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 400px;
+  height: auto;
+  margin-right: 50px;
+}
+
+.players-img2 {
+  width: 1000px;
+  margin-top: 20px;
+  height: auto;
+  position: absolute;
+  float: right;
+  right: -40px;
+  z-index: 0;
+}
+
+.players-img {
+  width: 600px;
+  margin-top: 70px;
+  height: auto;
+  position: absolute;
+  float: right;
+  right: -40px;
+  z-index: 0;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.hero-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.fav-games-img{
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+  margin-right: 20px;
+  border-radius: 7px;
+}
+
+.bf-cont{
+  background-image:  url('/bfMiniImg.jpg');
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+}
+
+.nhl-cont{
+  background-image:  url('/nhlImg.jpg');
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+}
