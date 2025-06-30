@@ -25,7 +25,6 @@ const roleIcons: Record<string, string> = {
   JET: "/jet.png"
 };
 
-
 const CACHE_EXPIRATION = 5 * 60 * 1000;
 
 export default function BattlefieldHome() {
@@ -68,7 +67,6 @@ export default function BattlefieldHome() {
       let backendUrl = '';
 
       try {
-        console.log("Retrieving backend URL");
         const configRes = await fetch('/api/my-wrapper/');
         const config = await configRes.json();
         backendUrl = config.BACKEND_URL;
