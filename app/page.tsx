@@ -1,11 +1,13 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState} from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+
 export default function Home() {
   const pathname = usePathname();
   const router = useRouter();
   const canvasRef = useRef(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const navItems = [
     { label: 'Home', href: '/home' },
@@ -14,7 +16,11 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    
+    const accessToken = localStorage.getItem('access_token')
+    console.log(accessToken)
+    if (accessToken) {
+      setIsAuthenticated(true);
+    }
     const canvas = canvasRef.current as HTMLCanvasElement | null;
     if (!canvas) return;
 
@@ -125,21 +131,35 @@ export default function Home() {
               className="w-full pl-3 bg-transparent border-none focus:outline-none text-sm placeholder-white/50"
             />
           </div>
-
-          <div className="flex space-x-4">
-            <Link href="/login" passHref>
-              <button className="h-10 px-2 py-1 border border-[#0281d6] text-[#0281d6] rounded hover:brightness-110 hover:text-[#0281d6] transition text-sm mt-2 mb-2">
-                LOG IN
+          {!isAuthenticated ? (
+            <>
+              <div className="flex space-x-4">
+                <Link href="/login" passHref>
+                  <button className="h-10 px-2 py-1 border border-[#0281d6] text-[#0281d6] rounded hover:brightness-110 hover:text-[#0281d6] transition text-sm mt-2 mb-2">
+                    LOG IN
+                  </button>
+                </Link>
+                <Link href="/signup" passHref>
+                <button
+                  className="h-10 bg-gradient-to-r from-[#06b6d4] to-[#097cce] px-4 py-2 text-white rounded hover:brightness-110 transition text-sm mt-2"
+                >
+                  SIGN UP NOW
+                </button>
+                </Link>
+              </div>
+              </>
+          ) : (
+              <button
+                onClick={() => {
+                  localStorage.removeItem('access_token');
+                  setIsAuthenticated(false);
+                  router.push('/login');
+                }}
+                className="px-4 py-2 border border-[#0281d6] text-[#0281d6] rounded hover:brightness-110 transition text-sm"
+              >
+                LOG OUT
               </button>
-            </Link>
-            <Link href="/signup" passHref>
-            <button
-              className="h-10 bg-gradient-to-r from-[#06b6d4] to-[#097cce] px-4 py-2 text-white rounded hover:brightness-110 transition text-sm mt-2"
-            >
-              SIGN UP NOW
-            </button>
-            </Link>
-          </div>
+            )}
         </header>
         <div className='mx-[158px]'>
           <section className="py-36 relative">

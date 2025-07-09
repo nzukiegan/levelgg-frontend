@@ -57,11 +57,34 @@ const SignupPage = () => {
         username: formData.username,
         password: formData.password,
         confirm_password: formData.confirmPassword,
-        is_team_lead: formData.role === 'team_lead',
+        is_team_lead: false,
         is_admin: false
+      })
+      .then((response) => {
+        const { tokens, user } = response.data;
+        localStorage.setItem("access_token", tokens.access);
+        localStorage.setItem("refresh_token", tokens.refresh);
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("customSignUp", "true")
+        router.push("/social_callback")
+      })
+      .catch((err) => {
+        console.log(err)
+        const detail = err?.response?.data?.detail;
+        const message = Array.isArray(detail) ? detail[0] : detail;
+
+        console.error("Signup error:", message || err);
+
+        if (typeof message === "string" && message.includes("already exists")) {
+          toast.info("Account exists. Redirecting to login...");
+          router.push("/login");
+        } else if (err?.response?.status === 400) {
+          router.push("/login");
+        } else {
+          router.push("/signup");
+        }
       });
       toast.success('Account created successfully!');
-      router.push('/login');
     } catch (error: any) {
       toast.error(error.response?.data?.detail || 'Registration failed');
     } finally {
@@ -71,6 +94,7 @@ const SignupPage = () => {
 
   const handleSocialSignup = async (provider: string) => {
     if (!config) return;
+    localStorage.setItem("customSignUp", "false")
     localStorage.setItem("provider", provider);
     const authUrl = getAuthUrl(provider);
     window.location.href = authUrl;
@@ -118,14 +142,6 @@ const SignupPage = () => {
             <InputField id="username" label="Username" value={formData.username} handleChange={handleChange} />
             <InputField id="password" label="Password" value={formData.password} handleChange={handleChange} type="password" />
             <InputField id="confirmPassword" label="Confirm Password" value={formData.confirmPassword} handleChange={handleChange} type="password" />
-
-            <div className="mb-4">
-              <label htmlFor="role" className="block text-sm mb-1 text-white/80">Account Type</label>
-              <select name="role" value={formData.role} onChange={handleChange} className="w-full px-3 py-2 bg-[#0a1d2f] focus:border-[#65bdfc] focus:outline-none border border-[#114369] rounded-sm text-sm text-white">
-                <option value="player">Player</option>
-                <option value="team_lead">Team Leader</option>
-              </select>
-            </div>
 
             <button type="submit" disabled={isLoading} className="w-full py-2 bg-[#1a73e8] hover:bg-[#1664c4] rounded-sm text-sm font-semibold disabled:opacity-50" style={{ background: 'linear-gradient(to right, #65bdfc, #209cf5)' }}>
               {isLoading ? 'CREATING ACCOUNT...' : 'SIGN UP'}

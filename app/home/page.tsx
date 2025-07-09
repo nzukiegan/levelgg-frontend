@@ -68,16 +68,13 @@ export default function Home() {
       const config = await res.json();
       backendUrl = config.BACKEND_URL;
       try {
-        const accessToken =
-          localStorage.getItem('access_token') ||
-          sessionStorage.getItem('access_token');
-
+        const accessToken = localStorage.getItem('access_token')
+        console.log(accessToken)
         if (accessToken) {
           setIsAuthenticated(true);
         }
 
         if (!accessToken) {
-          console.error('No access token found');
           router.push('/login');
           return;
         }

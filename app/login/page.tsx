@@ -18,7 +18,7 @@ const LoginPage = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [config, setConfig] = useState<{
-    HOST_ADDRESS: string;
+    BACKEND_URL: string;
     DISCORD_CLIENT_ID: string;
     TWITCH_CLIENT_ID: string;
     FACEBOOK_CLIENT_ID: string;
@@ -82,14 +82,13 @@ const LoginPage = () => {
     setErrors(prev => ({ ...prev, general: '' }));
     
     try {
-      const response = await axios.post(`${config.HOST_ADDRESS}/api/auth/login/`, {
+      const response = await axios.post(`${config.BACKEND_URL}/api/auth/login/`, {
         email: formData.email,
         password: formData.password
       });
 
-      const storage = formData.rememberMe ? localStorage : sessionStorage;
-      storage.setItem('access_token', response.data.access);
-      storage.setItem('refresh_token', response.data.refresh);
+      localStorage.setItem('access_token', response.data.access);
+      localStorage.setItem('refresh_token', response.data.refresh);
       localStorage.setItem('user', JSON.stringify(response.data.user));
 
       if (response.data.user.is_admin) {

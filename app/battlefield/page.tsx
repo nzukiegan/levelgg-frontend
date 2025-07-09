@@ -151,7 +151,7 @@ export default function BattlefieldHome() {
     if (!newsScrollRef.current) return;
 
     const container = newsScrollRef.current;
-    const scrollAmount = container.offsetWidth; // width of one "page"
+    const scrollAmount = container.offsetWidth;
 
     if (direction === 'right') {
       setNewsPageIndex((prev) => {
@@ -201,7 +201,7 @@ export default function BattlefieldHome() {
 
     if (tournamentCards.length === 0) {
       return (
-        <div className="flex justify-center items-center h-[400px] rounded">
+        <div className="flex justify-center items-center h-[400px] w-full rounded">
           <p className="text-xl text-gray-300">NO AVAILABLE TOURNAMENTS</p>
         </div>
       );
@@ -224,7 +224,7 @@ export default function BattlefieldHome() {
                 <img
                   src={"/bfMiniImg.jpg"}
                   alt="Battlefield"
-                  className="inset-0 w-full h-[150px] object-cover rounded-t z-0"
+                  className="inset-0 w-full h-[150px] object-cover rounded-t"
                   style={{opacity: 0.5}}
                 />
               </div>
@@ -261,16 +261,15 @@ export default function BattlefieldHome() {
 
   return (
     <main className="hero-gradient min-h-screen text-white relative bg-[#08182a] font-bahnschrift overflow-x-hidden">
-      <Header/>
-      <Header2/>
       <img
         src="/player.png"
         alt="Players"
-        className="fixed top-20 right-0 w-[200px] h-[auto] z-0 pointer-events-none players-img"
+        className="fixed top-20 right-0 w-[200px] h-[auto] z-0 pointer-events-none players-img absolute"
       />
-      
-      <div className="relative flex z-20">
-        <div className="flex-1 bg-gradient-to-r from-[#061526] to-[#0b1f30]/70 pl-[158px] bg-black w-full" style={{opacity: 1.0}}>
+      <Header/>
+      <Header2/>
+      <div className="relative flex z-10">
+        <div className="flex-1 bg-gradient-to-r from-[#061526] to-[#0b1f30]/70 pl-[158px] bg-black w-full" style={{opacity: 0.85}}>
           <div className='pt-[48px] bg-gradient-to-r from-[#08182a] to-[#0a3152]/10'>
             <div className="flex p-[2px] bg-gradient-to-r from-[#377cca] to-[#0d2a42]/10 rounded-md flex]">
               <div className="flex p-2 rounded-md bg-gradient-to-r from-[#0e3250] via-[#0f2f49] to-[#0a3152]/10 rounded h-full w-full">
@@ -328,7 +327,7 @@ export default function BattlefieldHome() {
               </div>
               <p className="text-xl mb-4 mb-2 text-[14px] mt-[8px]">Register for upcoming tournament</p>
               
-              <div className='flex gap-4 overflow-x-auto scrollbar-thin'>
+              <div className='flex gap-4 overflow-x-auto scrollbar-transparent'>
                 {renderTournaments()}
               </div>
             </section>

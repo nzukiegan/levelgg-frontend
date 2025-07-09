@@ -8,9 +8,13 @@
 }
 
 @layer utilities {
+  .scrollbar-transparent {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  }
+
   .scrollbar-transparent::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
   }
 
   .scrollbar-transparent::-webkit-scrollbar-track {
@@ -18,14 +22,10 @@
   }
 
   .scrollbar-transparent::-webkit-scrollbar-thumb {
-    background-color: transparent; /* fully transparent */
-    border-radius: 10px;
+    background-color: transparent;
+    border-radius: 4px;
   }
 
-  .scrollbar-transparent {
-    scrollbar-width: thin;
-    scrollbar-color: transparent transparent;
-  }
 }
 
 @font-face {
