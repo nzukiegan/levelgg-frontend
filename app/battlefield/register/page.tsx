@@ -31,7 +31,6 @@ export default function BattlefieldHome() {
   const [selectedCombatRole, setSelectedCombatRole] = useState('');
   const [teamDetails, setTeamDetails] = useState<any>(null);
   const [teamId, setTeamId] = useState<any>(null);
-  const token = localStorage.getItem('access_token');
 
   useEffect(() => {
 
@@ -59,7 +58,7 @@ export default function BattlefieldHome() {
         const res = await fetch(`${backendUrl}/api/teams/`, {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
           },
         });
 
@@ -88,7 +87,7 @@ export default function BattlefieldHome() {
 
     fetch(`${backendUrl}/api/allteamdetails/?teamId=${teamId}`, {
       headers: {
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
         'Content-Type': 'application/json',
       },
     })
@@ -116,7 +115,7 @@ export default function BattlefieldHome() {
       const res = await axios.post(
         `${backendUrl}/api/team/join/`,
         { join_code: joinCode },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } }
       );
       setTeamJoined(true);
       sessionStorage.setItem('in_team', 'true');
@@ -134,7 +133,7 @@ export default function BattlefieldHome() {
 
     try {
       await axios.post(`${backendUrl}/api/assign-roles/`, { is_team_captain: selectedRoles.teamCaptain, is_squad_lead: selectedRoles.squadLead, action_role: selectedCombatRole}, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` },
       });
       toast.success('Role assignment successful!');
       router.push('/battlefield');
