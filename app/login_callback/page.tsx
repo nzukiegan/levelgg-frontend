@@ -47,6 +47,7 @@ export default function LoginCallbackHandler() {
         });
 
         const { tokens, user } = res.data;
+        console.log(user);
         localStorage.setItem('access_token', tokens.access);
         localStorage.setItem('refresh_token', tokens.refresh);
         localStorage.setItem('user', JSON.stringify(user));
@@ -54,7 +55,7 @@ export default function LoginCallbackHandler() {
         toast.success('Login successful!');
         router.push('/home');
       } catch (err: any) {
-        console.error(err);
+        console.log(err);
         const errorMsg = axios.isAxiosError(err)
           ? err.response?.data?.error || err.response?.data?.detail || ''
           : '';
