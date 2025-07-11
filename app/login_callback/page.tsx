@@ -54,6 +54,7 @@ export default function LoginCallbackHandler() {
         toast.success('Login successful!');
         router.push('/home');
       } catch (err: any) {
+        console.error(err);
         const errorMsg = axios.isAxiosError(err)
           ? err.response?.data?.error || err.response?.data?.detail || ''
           : '';
