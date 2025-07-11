@@ -58,7 +58,7 @@ export default function LoginCallbackHandler() {
           ? err.response?.data?.error || err.response?.data?.detail || ''
           : '';
 
-        if (errorMsg === 'not_registered' || err.response?.status === 400) {
+        if (errorMsg === 'not_registered') {
           router.push('/signup');
         } else {
           toast.error('Social login failed. Please try again.');
